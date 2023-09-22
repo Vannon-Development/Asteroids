@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://hridpqcy8hb1"]
+
+[ext_resource type="Texture2D" uid="uid://bt1uxfqa3q1lr" path="res://Sprites/Sprites_0007_Ship.png" id="1_65fsb"]
+[ext_resource type="Script" path="res://Scripts/Ship.gd" id="1_edy53"]
+[ext_resource type="Texture2D" uid="uid://dk6an8qs5vhri" path="res://Sprites/Sprites_0006_Ship-Jet.png" id="3_52wmk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_euper"]
+radius = 13.0
+
+[node name="Ship" type="Area2D"]
+collision_mask = 4
+input_pickable = false
+monitorable = false
+script = ExtResource("1_edy53")
+metadata/Acceleration = 60.0
+metadata/TurnSpeed = 120.0
+metadata/NormalSprite = NodePath("NoJet")
+metadata/JetSprite = NodePath("Jet")
+metadata/FirePosition = NodePath("Fire Position")
+metadata/FireTime = 500.0
+metadata/MaxSpeed = 400.0
+
+[node name="NoJet" type="Sprite2D" parent="."]
+visibility_layer = 16
+texture = ExtResource("1_65fsb")
+
+[node name="Jet" type="Sprite2D" parent="."]
+visible = false
+visibility_layer = 16
+texture = ExtResource("3_52wmk")
+
+[node name="Body Collider" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+shape = SubResource("CircleShape2D_euper")
+
+[node name="Fire Position" type="Marker2D" parent="."]
+position = Vector2(18, 0)
+
+[connection signal="area_entered" from="." to="." method="_on_ship_hit"]

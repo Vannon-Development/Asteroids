@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://crdwtq2p2dljl"]
+
+[ext_resource type="Script" path="res://Scripts/SceneManager.gd" id="1_2pgo5"]
+[ext_resource type="PackedScene" uid="uid://hridpqcy8hb1" path="res://Objects/Ship.tscn" id="1_3qg4f"]
+[ext_resource type="PackedScene" uid="uid://dwklntumvxdfo" path="res://Objects/LevelScreen.tscn" id="3_a6oq6"]
+[ext_resource type="PackedScene" uid="uid://b0lfuy3pdah7h" path="res://Objects/Starfield.tscn" id="4_skwmc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jj8oi"]
+font_size = 18
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource("1_2pgo5")
+
+[node name="Ship" parent="." instance=ExtResource("1_3qg4f")]
+position = Vector2(400, 400)
+
+[node name="Level Screen" parent="." instance=ExtResource("3_a6oq6")]
+
+[node name="Score" type="Label" parent="."]
+offset_right = 800.0
+offset_bottom = 26.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_jj8oi")
+
+[node name="Starfield" parent="." instance=ExtResource("4_skwmc")]
+
+[connection signal="ship_destroyed" from="Ship" to="." method="_on_ship_destroyed"]
+[connection signal="level_pause" from="Level Screen" to="." method="_on_level_pause"]
+[connection signal="level_play" from="Level Screen" to="." method="_on_level_play"]
+[connection signal="reset_game" from="Level Screen" to="." method="_on_reset"]

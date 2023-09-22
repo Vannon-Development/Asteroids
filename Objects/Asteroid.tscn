@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cegla8se5w342"]
+
+[ext_resource type="Script" path="res://Scripts/Asteroid.gd" id="1_3bknj"]
+[ext_resource type="Texture2D" uid="uid://dicrmeofhkm8p" path="res://Sprites/Sprites_0005_Small-Asteroid.png" id="1_lbi3x"]
+[ext_resource type="Texture2D" uid="uid://bl2yco6xveu5j" path="res://Sprites/Sprites_0004_Medium-Asteroid.png" id="2_qhl1c"]
+[ext_resource type="Texture2D" uid="uid://cypak6in3ykkd" path="res://Sprites/Sprites_0003_Large-Asteroid.png" id="3_268a8"]
+
+[node name="Asteroid" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+input_pickable = false
+script = ExtResource("1_3bknj")
+metadata/Size = 0
+metadata/SmallVisual = NodePath("Small")
+metadata/MediumVisual = NodePath("Medium")
+metadata/LargeVisual = NodePath("Large")
+metadata/SmallSpeedRange = Vector2(150, 500)
+metadata/MediumSpeedRange = Vector2(100, 300)
+metadata/LargeSpeedRange = Vector2(50, 120)
+metadata/SmallAngleRange = Vector2(30, 270)
+metadata/MediumAngleRange = Vector2(20, 180)
+metadata/LargeAngleRange = Vector2(5, 60)
+
+[node name="Small" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-1, -10, 1, -13, 5, -12, 7, -8, 10, -7, 11, -1, 6, 2, 7, 8, -1, 10, -4, 13, -11, 9, -8, 5, -11, 3, -11, -1, -7, -5, -6, -8)
+
+[node name="Visual" type="Sprite2D" parent="Small"]
+visibility_layer = 256
+texture = ExtResource("1_lbi3x")
+
+[node name="Medium" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-3, -37, -19, -36, -24, -31, -29, -31, -33, -24, -32, -19, -35, -11, -34, -4, -39, 7, -36, 10, -37, 16, -30, 21, -30, 27, -9, 37, -5, 36, 0, 40, 12, 35, 27, 24, 29, 17, 37, 4, 38, -6, 33, -16, 26, -20, 24, -28, 26, -31, 18, -39, 9, -40)
+
+[node name="Sprite2D" type="Sprite2D" parent="Medium"]
+visibility_layer = 256
+texture = ExtResource("2_qhl1c")
+
+[node name="Large" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(45, -78, 30, -74, 18, -80, -21, -70, -38, -64, -42, -53, -52, -42, -58, -26, -66, -18, -60, -6, -66, 29, -59, 40, -52, 59, -29, 69, -2, 71, 5, 78, 16, 77, 46, 55, 56, 29, 62, 14, 57, 5, 59, -12, 66, -44, 61, -49, 59, -61)
+
+[node name="Sprite2D" type="Sprite2D" parent="Large"]
+visibility_layer = 256
+texture = ExtResource("3_268a8")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
